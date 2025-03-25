@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1 {
+            color: #333;
+        }
+        .course-list {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .course {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            min-width: 200px;
+        }
+        .course:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            background-color: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #5648a2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>E-Learning Platform</h1>
+        <div class="course-list" id="course-list"></div>
+        <div id="course-content" class="hidden">
+            <button onclick="goBack()">Back to Courses</button>
+            <h2 id="course-title"></h2>
+            <iframe id="course-video" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    
+    <script>
+        const courses = [
+            { id: 1, title: "React Basics", videoUrl: "https://www.youtube.com/embed/Ke90Tje7VS0" },
+            { id: 2, title: "Advanced JavaScript", videoUrl: "https://www.youtube.com/embed/Oe421EPjeBE" },
+            { id: 3, title: "CSS for Beginners", videoUrl: "https://www.youtube.com/embed/1PnVor36_40" }
+        ];
+
+        const courseList = document.getElementById("course-list");
+        const courseContent = document.getElementById("course-content");
+        const courseTitle = document.getElementById("course-title");
+        const courseVideo = document.getElementById("course-video");
+
+        function loadCourses() {
+            courses.forEach(course => {
+                const div = document.createElement("div");
+                div.classList.add("course");
+                div.textContent = course.title;
+                div.onclick = () => loadCourse(course);
+                courseList.appendChild(div);
+            });
+        }
+
+        function loadCourse(course) {
+            courseList.style.display = "none";
+            courseContent.classList.remove("hidden");
+            courseTitle.textContent = course.title;
+            courseVideo.src = course.videoUrl;
+        }
+
+        function goBack() {
+            courseList.style.display = "flex";
+            courseContent.classList.add("hidden");
+            courseVideo.src = "";
+        }
+
+        loadCourses();
+    </script>
+</body>
+</html>
